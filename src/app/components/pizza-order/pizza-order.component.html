@@ -31,12 +31,29 @@
                 <mat-slide-toggle checked="{{pizza.checkTopping(topping)}}" (change)="changeTopping(pizza, topping, $event)"></mat-slide-toggle>
             </td>
         </tr>
-        <tr>
-        <td>Total</td>
+        <tr class="totalRow">
+            <td>Total</td>
+            <td *ngFor="let pizza of order">
+            </td>
         </tr>
         <tr>
-        <td></td>
-        <td *ngFor="let pizza of order">{{pizza.getPrice() | currency:'$'}}</td>
+            <td>Offer name</td>
+            <td *ngFor="let pizza of order">
+                {{pizza.offerName}}
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td *ngFor="let pizza of order">
+                <span *ngIf="pizza.offerPrice == null;else elseBlock">
+                    {{pizza.getPrice() | currency:'$'}}
+                </span>
+                <ng-template #elseBlock>
+                    <span  [ngClass]="'strikethrough'">{{pizza.getPrice() | currency:'$'}}</span>
+                    <br/>
+                    <span>{{pizza.offerPrice | currency:'$'}}</span>
+                </ng-template>
+            </td>
         </tr>
     </table>
     <button class="placeOrderBut" mat-raised-button color="primary" (click)="placeOrder()">Place order {{getOrderPrice() | currency:'$'}}</button>

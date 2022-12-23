@@ -3,9 +3,11 @@ import { IPizzaSize } from "./IPizzaSize";
 import { ITopping } from "./ITopping";
 
 export class Pizza implements IPizza {
-    constructor(public size: IPizzaSize, public toppings: ITopping[] = []) {
+    constructor(public size: IPizzaSize, public toppings: ITopping[] = [], public offerPrice: any = null, public offerName : string = "") {
         this.size = size;
         this.toppings = toppings;
+        this.offerPrice = offerPrice;
+        this.offerName = offerName;
      }
 
     getPrice(): number {
