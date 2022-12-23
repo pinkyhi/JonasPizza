@@ -1,0 +1,43 @@
+<div class="orderBox">
+    <mat-form-field appearance="fill">
+    <mat-label>Pizza Size</mat-label>
+    <mat-select matNativeControl [(value)]="selectedSize">
+        <mat-option *ngFor="let size of getPizzaSizes()" value={{size.title}}>{{size.title}} {{size.price | currency:'$'}}</mat-option>
+    </mat-select>
+    </mat-form-field>
+    <button class="addPizzaBut" mat-stroked-button color="primary" (click)="addPizza()">Add PIZZA!</button>
+
+    <table>
+        <tr>
+        <th>Toppings</th>
+        <th *ngFor="let pizza of order">{{pizza.size.title}} {{pizza.size.price | currency:'$'}}</th>
+        </tr>
+
+        <tr>
+            <td>Veg Toppings</td>
+        </tr>
+        <tr *ngFor="let topping of getToppings() | filterToppings:true">
+            <td>{{topping.title}} {{topping.price | currency:'$'}}</td>
+            <td *ngFor="let pizza of order">
+                <mat-slide-toggle checked="{{pizza.checkTopping(topping)}}" (change)="changeTopping(pizza, topping, $event)"></mat-slide-toggle>
+            </td>
+        </tr>
+        <tr>
+            <td>Non Veg Toppings</td>
+        </tr>
+        <tr *ngFor="let topping of getToppings() | filterToppings:false">
+            <td>{{topping.title}} {{topping.price | currency:'$'}}</td>
+            <td *ngFor="let pizza of order">
+                <mat-slide-toggle checked="{{pizza.checkTopping(topping)}}" (change)="changeTopping(pizza, topping, $event)"></mat-slide-toggle>
+            </td>
+        </tr>
+        <tr>
+        <td>Total</td>
+        </tr>
+        <tr>
+        <td></td>
+        <td *ngFor="let pizza of order">{{pizza.getPrice() | currency:'$'}}</td>
+        </tr>
+    </table>
+    <button class="placeOrderBut" mat-raised-button color="primary" (click)="placeOrder()">Place order {{getOrderPrice() | currency:'$'}}</button>
+</div>

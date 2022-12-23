@@ -1,0 +1,20 @@
+table, th, td {
+    border: 1px solid black;
+  }
+button{
+    margin-left: auto;
+    margin-right: auto;
+}
+.addPizzaBut{
+    margin-bottom: 16px;
+}
+.placeOrderBut{
+    margin-top: 16px;
+}
+.orderBox{
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    justify-content: center;
+}
